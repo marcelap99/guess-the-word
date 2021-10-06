@@ -7,6 +7,7 @@ const remainingPar = document.querySelector(".remaining");
 const remainingSpan = document.querySelector(".remainingSpan");
 const messageDisplay = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
+
 // GLOBAL VARIABLES
 let word = "Magnolia";
 let guessedLettersArray = [];
@@ -15,7 +16,7 @@ let guessedLettersArray = [];
 const letterPlaceholder = function(word){
   // set empty array to insert symbol
   const placeholderLetters = [];
-// loop through length of string while pusing symbol into empty array
+// loop through length of string while pushing symbol into empty array
   for(let letters of word ){
     // symbol was copy paste
     placeholderLetters.push("●");
@@ -43,6 +44,7 @@ guessButton.addEventListener("click",function(e){
 
    // clear input field after letter submitted
    inputLetter.value = "";
+
 });
 
 // CREATE VALIDATOR FUNCTION
@@ -66,6 +68,7 @@ function validateInfo(input){
   } else {
     // if all filters passed return the letter enetered
   return input };
+  // this function gets called in the event listener
 };
 
 // CREATE FUNCTION THAT WILL UPDATE THE GUESSED LETTERS ARRAY
@@ -80,6 +83,62 @@ function makeGuess(inputValue){
     // push letter into the array
     guessedLettersArray.push(inputValue)
     // console.log(`Array ${guessedLettersArray}`)
+    displayGuessed();
+    updateWordInProgress(guessedLettersArray);
   }
 
+};
+
+
+// CREATE FUNCTION THAT WILL DISPLAY LETTERS GUESSED BY THE PLAYER
+function displayGuessed(){
+  // Clear the list first if not it will duplicate guesses
+  guessedLetters.innerHTML = "";
+// Loop through array of letters guessed while making new LI inserting letter into new LI, then insert LI into display ul
+  for(const letter of guessedLettersArray){
+    // console.log(letter);
+    const li = document.createElement("li");
+    li.innerText = letter;
+    guessedLetters.append(li);
+  }
+// this function gets called in the makeGuess function
+};
+
+// Create a Function to Update the Word in Progress
+function updateWordInProgress(guessedLettersArray){
+  // Capitalize word to be guessed
+  const wordUpper = word.toUpperCase();
+  // use .split() to convert into an array
+  const wordArray = wordUpper.split("");
+  // set empty array to reveal correct guesses
+  const revealWord = [];
+  // console.log(wordArray)
+  // loop through array of correct word to be guesssed
+  for(const letter of wordArray){
+    // console.log(letter)
+    // check if guessed letter is a match with the correct letters in the word to be guessed
+    if(guessedLettersArray.includes(letter)){
+      // insert correct guesses into empty array to be revealed
+        revealWord.push(letter.toUpperCase());
+    }else{
+      // if guess is incorrect insert placeholder symbol
+      revealWord.push("●");
+    }
+  }
+  // console.log(revealWord)
+
+  // use .join("") to convert array back into string, insert string as correct guesses to reveal.
+  wordInProgress.innerText = revealWord.join("");
+  checkIfWin();
+  // this function gets called in the makeGuess function
+};
+
+
+function checkIfWin(){
+  // console.log(wordInProgress)
+  if(word.toUpperCase() === wordInProgress.innerText){
+    messageDisplay.classList.add("win");
+    messageDisplay.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
+  }
+// this function gets called in the updateWordInProgress function
 };
