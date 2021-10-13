@@ -38,7 +38,7 @@ const getWord = async function(){
 
 };
 // Starts the game
-getWord();
+
 
 
 
@@ -183,6 +183,7 @@ function countGuessesRemaining(inputValue){
   if(remainingGuesses === 0){
     messageDisplay.innerText = `The game is over! The word is "${upperCasedWord}"`;
     remainingSpan.innerText = `0 guesses`;
+    startover();
   } else if(remainingGuesses === 1){
     remainingSpan.innerText = `1 guess`;
   } else {
@@ -192,12 +193,56 @@ function countGuessesRemaining(inputValue){
 };
 
 
-
+// CREATE FUNTION TO CHECK IF GUESSED CORRECTLY AND WON!
 function checkIfWin(){
   // console.log(wordInProgress)
+
+  // Check if word fetched is the same as word guessed by player
   if(word.toUpperCase() === wordInProgress.innerText){
+    // Change class name (changes CSS) of message paragraph
     messageDisplay.classList.add("win");
+    // Change text of message being displayed
     messageDisplay.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
+
+    startover();
   }
 // this function gets called in the updateWordInProgress function
 };
+
+// CREATE FUNCTION TO HIDE AND SHOW SOME ELEMENTS & START OVER
+function startover(){
+  // Hide button by adding "hide" class
+  guessButton.classList.add("hide");
+  // Hide paragraph showing guesses remaining
+  remainingPar.classList.add("hide");
+  // Hide letters guessed
+  guessedLetters.classList.add("hide");
+  // Show the play again button
+  playAgainButton.classList.remove("hide");
+};
+
+// CREATE CLICK EVENT FOR PLAY AGAIN BUTTON
+playAgainButton.addEventListener("click",function(){
+  // Remove the "win" class from message paragraph
+  messageDisplay.classList.remove("win");
+  // Set message to empty string
+  messageDisplay.innerText = "";
+  // Set guessed letters to empty string
+  guessedLetters.innerText = "";
+  // Reset the remaing guesses to start point
+  remainingGuesses = 8;
+  // Reset guessed letters array to empty array
+  guessedLettersArray = [];
+  // Reset the remaing guesses paragraph span
+  remainingSpan.innerText = `${remainingGuesses} guesses`;
+  // Show the guess button again
+  guessButton.classList.remove("hide");
+  // Show paragraph with remaining guesses info
+  remainingPar.classList.remove("hide");
+  // Show letters being guessed again
+  guessedLetters.classList.remove("hide");
+  // Hide play again button
+  playAgainButton.classList.add("hide");
+  // RE-START THE GAME!
+  getWord();
+});
