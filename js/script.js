@@ -35,10 +35,11 @@ const getWord = async function(){
 
    // Call letterPlacehodler function with new random word so place holders match each word being guessed
    letterPlaceholder(word);
+   console.log(word)
 
 };
 // Starts the game
-
+getWord();
 
 
 
@@ -245,4 +246,5 @@ playAgainButton.addEventListener("click",function(){
   playAgainButton.classList.add("hide");
   // RE-START THE GAME!
   getWord();
+
 });
