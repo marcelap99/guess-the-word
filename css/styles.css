@@ -16,6 +16,8 @@ body {
   background-size: 800px;
   background-repeat: repeat;
   color: #305050;
+  height:95vh;
+  width:95vw;
 }
 
 .logo {
@@ -30,7 +32,8 @@ h1 {
   font-family: "Unlock", sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 44px;
+  /* font-size: 44px; */
+  font-size:2.2em;
   text-align: center;
 }
 
@@ -42,7 +45,8 @@ h1 {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 90%;
+  width: 95vw;
+  height:95vh;
 }
 
 .hide {
@@ -63,7 +67,8 @@ h1 {
 .word-in-progress {
   letter-spacing: 15px;
   color: #28bdbd;
-  font-size: 30px;
+  /* font-size: 30px; */
+  font-size:1.5em;
 }
 
 .guessed-letters {
@@ -80,6 +85,10 @@ h1 {
   text-align: center;
 }
 
+.remaining{
+  text-align: center;
+}
+
 .guess-form {
   display: flex;
   flex-direction: column;
@@ -89,7 +98,8 @@ h1 {
 .guess-form label {
   width: 100%;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 0.7em;
+  /* font-size: 14px; */
   text-align: center;
 }
 
@@ -110,7 +120,8 @@ input:focus {
 
 .guess,
 .play-again {
-  padding: 1em 3em;
+  padding: 0.75em 2em;
+  /* padding: 1em 3em; */
   border-radius: 50px;
   margin-top: 1em;
   color: #fff;
@@ -154,4 +165,33 @@ input:focus {
   100% {
     background-position: 0% 50%;
   }
+}
+
+
+/* MEDIA QUERIES TABLET MIN WIDTH 768PX */
+
+
+@media only screen and (min-width: 768px){
+  .logo {
+    width:80%;
+    max-width:583px;
+}
+.word-in-progress {
+  font-size:2.5em;
+    /* font-size: 50px; */
+}
+.remaining {
+    font-size: 1.25em;
+}
+.guess-form label {
+    font-size: 1em;
+}
+input {
+    width: 2.5em;
+    font-size: 1.7em;
+}
+.guess, .play-again{
+    font-size: 1.2em;
+}
+
 }
